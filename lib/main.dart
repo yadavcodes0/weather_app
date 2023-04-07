@@ -11,9 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: const HomeScreen(),
     );
   }
 }
@@ -30,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     return Stack(
       children: [
         Positioned(
@@ -48,61 +50,49 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color(0XFF2D2C35),
           ),
         ),
-        const Foreground()
+        const ForeGround(),
       ],
     );
   }
 }
 
-class Foreground extends StatelessWidget {
-  const Foreground({
-    super.key,
-  });
+class ForeGround extends StatelessWidget {
+  const ForeGround({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     var inputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30.0),
-      borderSide: const BorderSide(
-        color: Colors.white,
-      ),
+      borderRadius: BorderRadius.circular(30),
+      borderSide: const BorderSide(color: Colors.white),
     );
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
         leading: IconButton(
           onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-          ),
+          icon: const Icon(Icons.menu),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                'https://i.ibb.co/Z1fYsws/profile-image.jpg',
-              ),
-              backgroundColor: Colors.black26,
+        actions: const [
+          CircleAvatar(
+            backgroundImage: NetworkImage(
+              'https://i.ibb.co/Z1fYsws/profile-image.jpg',
             ),
+            backgroundColor: Colors.black26,
           ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: DefaultTextStyle(
-            style: GoogleFonts.raleway(color: Colors.white),
+        child: DefaultTextStyle(
+          style: GoogleFonts.raleway(color: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,15 +114,15 @@ class Foreground extends StatelessWidget {
                 const SizedBox(height: 35),
                 TextField(
                   decoration: InputDecoration(
-                    border: inputBorder,
-                    enabledBorder: inputBorder,
-                    focusedBorder: inputBorder,
                     hintText: 'Search city',
                     hintStyle: const TextStyle(
-                      fontSize: 12,
                       color: Colors.white,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
+                    border: inputBorder,
+                    focusedBorder: inputBorder,
+                    enabledBorder: inputBorder,
                     suffixIcon: const Icon(
                       Icons.search,
                       color: Colors.white,
@@ -153,32 +143,32 @@ class Foreground extends StatelessWidget {
                     OutlinedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        ),
                         shape: const CircleBorder(),
+                        side: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
                       ),
                       child: const Icon(
                         Icons.more_horiz,
+                        color: Colors.white,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       for (var location in locations)
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Stack(
-                              alignment: AlignmentDirectional.center,
+                              alignment: Alignment.center,
                               children: [
                                 ColorFiltered(
                                   colorFilter: const ColorFilter.mode(
@@ -220,7 +210,7 @@ class Foreground extends StatelessWidget {
                         ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
